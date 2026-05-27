@@ -27,6 +27,10 @@ export interface TransferToHumanArgs {
 }
 
 export class ToolService {
+
+  // FIX: expose emitter through ToolService
+  static liveChatEmitter = liveChatEmitter;
+
   /**
    * Mock implementation of scheduling a calendar appointment.
    * Updates customer profile metadata in the DB.
@@ -34,7 +38,6 @@ export class ToolService {
   static async bookAppointment(args: BookAppointmentArgs) {
     console.log(`[Tool: bookAppointment] Scheduling for ${args.customerName} at ${args.dateTime}`);
     
-    // Find conversation to get customer ID
     const conversation = await prisma.conversation.findUnique({
       where: { id: args.conversationId },
       include: { customer: true }
@@ -44,8 +47,8 @@ export class ToolService {
       throw new Error(`Conversation not found: ${args.conversationId}`);
     }
 
-    // Merge metadata
     const existingMetadata = (conversation.customer.metadata as Record<string, any>) || {};
+
     const updatedMetadata = {
       ...existingMetadata,
       appointmentDate: args.dateTime,
@@ -53,7 +56,6 @@ export class ToolService {
       lastInteractionTool: 'bookAppointment'
     };
 
-    // Update customer name and metadata
     const updatedCustomer = await prisma.customer.update({
       where: { id: conversation.customerId },
       data: {
@@ -62,8 +64,7 @@ export class ToolService {
       }
     });
 
-    // Notify agent dashboard of CRM update
-    liveChatEmitter.emit('crm-update', {
+    ToolService.liveChatEmitter.emit('crm-update', {
       conversationId: args.conversationId,
       customerId: conversation.customerId,
       customer: updatedCustomer
@@ -77,8 +78,7 @@ export class ToolService {
   }
 
   /**
-   * Mock implementation of exporting lead details to a CRM / Google Sheet.
-   * Logs details to a storage sink and tags the Customer.
+   * Mock implementation of exporting lead details to CRM/Google Sheet.
    */
   static async exportToSheet(args: ExportToSheetArgs) {
     console.log(`[Tool: exportToSheet] Exporting lead data:`, args.leadData);
@@ -93,6 +93,7 @@ export class ToolService {
     }
 
     const existingMetadata = (conversation.customer.metadata as Record<string, any>) || {};
+
     const updatedMetadata = {
       ...existingMetadata,
       exportedToSheet: true,
@@ -103,7 +104,6 @@ export class ToolService {
       }
     };
 
-    // Update customer details (populate emails/phones if captured)
     const updatedCustomer = await prisma.customer.update({
       where: { id: conversation.customerId },
       data: {
@@ -113,7 +113,7 @@ export class ToolService {
       }
     });
 
-    liveChatEmitter.emit('crm-update', {
+    ToolService.liveChatEmitter.emit('crm-update', {
       conversationId: args.conversationId,
       customerId: conversation.customerId,
       customer: updatedCustomer
@@ -127,8 +127,7 @@ export class ToolService {
   }
 
   /**
-   * Transition conversation status from AI_MANAGED to HUMAN_PENDING.
-   * Stop automated AI agent replies, trigger real-time dashboard notify.
+   * Transfer conversation to human support.
    */
   static async transferToHuman(args: TransferToHumanArgs) {
     console.log(`[Tool: transferToHuman] Handoff requested for conversation: ${args.conversationId}`);
@@ -143,8 +142,7 @@ export class ToolService {
       }
     });
 
-    // Broadcast transfer event to all connected dashboard agents
-    liveChatEmitter.emit('transfer-to-human', {
+    ToolService.liveChatEmitter.emit('transfer-to-human', {
       conversationId: args.conversationId,
       status: 'HUMAN_PENDING',
       conversation: updatedConversation

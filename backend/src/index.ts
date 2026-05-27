@@ -22,11 +22,26 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root Route
+app.get('/', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: 'AutoBot Backend API Running 🚀'
+  });
+});
+
+// Mount Omnichannel Webhooks
+app.use('/api/v1/webhooks', webhookRouter);
+
+<<<<<<< HEAD
+// Mount Voice Custom LLM Completions (Vapi Endpoint)
+app.use('/api/v1/voice', voiceCompletionRouter);
+=======
 // Mount Omnichannel Webhooks
 app.use('/api/v1/webhooks', webhookRouter);
 
 // Mount Voice Custom LLM Completions (Vapi Endpoint)
-app.use('/api/v1/voice', voiceCompletionRouter);
+>>>>>>> f52c43ea9390ab42fef75c875fdc1464a5b793f1
 
 // ==========================================
 // SSE STREAM: REAL-TIME CONSOLE ROUTE
@@ -227,7 +242,7 @@ app.patch('/api/v1/conversations/:id/status', async (req: Request, res: Response
 // ==========================================
 // SEEDING / PROVISIONING HELPER ENDPOINT
 // ==========================================
-app.post('/api/v1/dev/seed', async (req: Request, res: Response) => {
+app.get('/api/v1/dev/seed', async (req: Request, res: Response) => {
   try {
     let tenant = await prisma.tenant.findFirst({
       where: { name: 'Acme Corp' }
