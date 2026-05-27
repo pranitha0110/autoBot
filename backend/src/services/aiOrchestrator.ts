@@ -8,6 +8,7 @@ import {
   SchemaType
 } from '@google/generative-ai';
 import { env } from '../config/env';
+import { json } from 'stream/consumers';
 
 export class AIOrchestrator {
   /**
@@ -42,8 +43,7 @@ export class AIOrchestrator {
     }
 
     // Use tenant-specific key if configured, otherwise fallback
-    const currentApiKey =
-      tenant.openaiKey || env.GEMINI_API_KEY;
+    const currentApiKey = env.GEMINI_API_KEY;
 
     // 2. Resolve or Create Customer
     let customer = await prisma.customer.findFirst({
@@ -372,7 +372,7 @@ ${
 
         const model =
           genAI.getGenerativeModel({
-            model: 'gemini-1.5-flash',
+            model: 'gemini-1.5-flash-latest',
             systemInstruction:
               systemPrompt,
             tools: tools
@@ -384,6 +384,10 @@ ${
 
         const responseResult =
           await chat.sendMessage(body);
+          console.log(
+            '[Gemini Raw Response]',
+            globalThis.json.stringify(responseResult.response,null,2)
+          );
 
         const functionCalls =
           responseResult.response.functionCalls();
