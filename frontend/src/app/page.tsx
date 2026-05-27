@@ -206,9 +206,9 @@ function LandingPage({ onLaunchDashboard, onChoosePlan }: LandingPageProps) {
         <div className="flex items-center gap-3">
           <button
             onClick={onLaunchDashboard}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold rounded-lg transition-all glow-primary active:scale-95 flex items-center gap-1.5"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5 shadow-md shadow-indigo-600/10"
           >
-            Launch Console <ArrowRight className="h-3.5 w-3.5" />
+            Launch Console Demo <ArrowRight className="h-3.5 w-3.5" />
           </button>
           
           {/* Mobile menu button */}
@@ -245,25 +245,25 @@ function LandingPage({ onLaunchDashboard, onChoosePlan }: LandingPageProps) {
           Svachalit helps businesses automate conversations using hallucination-resistant Hybrid RAG AI workflows. Run customer support, book slots, and qualify leads on autopilot.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          <a 
-            href="#pricing"
-            className="px-6 py-3 bg-white text-zinc-950 hover:bg-zinc-100 text-xs font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5 shadow-xl"
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          <button 
+            onClick={() => onChoosePlan('managed')}
+            className="px-6 py-3 bg-white text-zinc-950 hover:bg-zinc-100 text-xs font-bold rounded-lg transition-all active:scale-95 flex items-center gap-1.5 shadow-md shadow-white/5"
           >
             Start Free Trial
-          </a>
+          </button>
+          <button 
+            onClick={onLaunchDashboard}
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white rounded-lg transition-all active:scale-95 flex items-center gap-1.5 shadow-lg shadow-indigo-600/15"
+          >
+            Launch Console Demo <ArrowRight className="h-3.5 w-3.5" />
+          </button>
           <a 
             href="#demo"
-            className="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-semibold rounded-lg transition-all active:scale-95 flex items-center gap-1.5"
+            className="px-6 py-3 bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-850 text-xs font-semibold rounded-lg transition-all active:scale-95 flex items-center gap-1.5"
           >
             Watch Demo <Play className="h-3 w-3 text-indigo-400 fill-indigo-400" />
           </a>
-          <button 
-            onClick={onLaunchDashboard}
-            className="px-6 py-3 bg-indigo-900/20 hover:bg-indigo-900/35 border border-indigo-500/20 text-xs font-semibold text-indigo-300 rounded-lg transition-all active:scale-95"
-          >
-            View Dashboard
-          </button>
         </div>
 
         {/* Hero Visual Mockup */}
@@ -1876,33 +1876,344 @@ function DashboardConsole({ onExitToLanding }: DashboardConsoleProps) {
             </div>
           )}
 
-          {/* TAB 3: ANALYTICS DETAIL PANEL */}
+          {/* TAB 3: ENTERPRISE ANALYTICS DETAIL PANEL */}
           {activeTab === 'analytics' && (
-            <div className="h-full overflow-y-auto p-6 space-y-6">
-              <h3 className="font-bold text-sm text-zinc-200">Advanced AI Performance Diagnostics</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="glass-panel p-5 rounded-xl space-y-2">
-                  <span className="text-[10px] text-zinc-500 block uppercase font-bold">RAG Retrieval Success</span>
-                  <h3 className="text-2xl font-extrabold text-white">99.1%</h3>
-                  <div className="w-full bg-zinc-900 h-1 rounded-full overflow-hidden mt-2">
-                    <div className="bg-indigo-500 h-full w-[99%]" />
+            <div className="h-full overflow-y-auto p-6 space-y-6 pb-24">
+              
+              {/* Header section */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                  <h3 className="font-bold text-base text-white">Enterprise ROI & Sales Diagnostics</h3>
+                  <p className="text-xs text-zinc-500">Real-time business performance, conversion rates, and cost containment metrics.</p>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-[10px] font-mono px-2.5 py-1 bg-zinc-900 border border-zinc-850 rounded-md text-zinc-400">
+                    Database: Active (SSE Streamed)
+                  </span>
+                  <span className="text-[10px] font-mono px-2.5 py-1 bg-indigo-950 text-indigo-400 border border-indigo-900/50 rounded-md">
+                    Target ARR: $1,494,000
+                  </span>
+                </div>
+              </div>
+
+              {/* 4 Enterprise KPI Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                {/* Sales Pipeline */}
+                <div className="bg-[#09090b] border border-zinc-900 p-5 rounded-xl space-y-3 relative hover:border-zinc-800 transition-all">
+                  <div className="absolute top-4 right-4 p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+                    <DollarSign className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10px] text-zinc-500 block uppercase font-bold tracking-wider">Sales Pipeline</span>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">$124,500</h3>
+                    <p className="text-[10px] text-emerald-400 flex items-center gap-1 mt-1 font-semibold">
+                      <TrendingUp className="h-3 w-3" /> +14.2% MoM ARR growth
+                    </p>
                   </div>
                 </div>
-                <div className="glass-panel p-5 rounded-xl space-y-2">
-                  <span className="text-[10px] text-zinc-500 block uppercase font-bold">Average Latency</span>
-                  <h3 className="text-2xl font-extrabold text-white">1.64s</h3>
-                  <div className="w-full bg-zinc-900 h-1 rounded-full overflow-hidden mt-2">
-                    <div className="bg-indigo-500 h-full w-[80%]" />
+
+                {/* Automated Bookings */}
+                <div className="bg-[#09090b] border border-zinc-900 p-5 rounded-xl space-y-3 relative hover:border-zinc-800 transition-all">
+                  <div className="absolute top-4 right-4 p-2 bg-indigo-500/10 rounded-lg text-indigo-400">
+                    <Calendar className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10px] text-zinc-500 block uppercase font-bold tracking-wider">Automated Bookings</span>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">342 slots</h3>
+                    <p className="text-[10px] text-indigo-400 flex items-center gap-1 mt-1 font-semibold">
+                      <TrendingUp className="h-3 w-3" /> +18.5% booking containment
+                    </p>
                   </div>
                 </div>
-                <div className="glass-panel p-5 rounded-xl space-y-2">
-                  <span className="text-[10px] text-zinc-500 block uppercase font-bold">Token Efficiency</span>
-                  <h3 className="text-2xl font-extrabold text-white">94.8%</h3>
-                  <div className="w-full bg-zinc-900 h-1 rounded-full overflow-hidden mt-2">
-                    <div className="bg-indigo-500 h-full w-[94%]" />
+
+                {/* Hours Saved */}
+                <div className="bg-[#09090b] border border-zinc-900 p-5 rounded-xl space-y-3 relative hover:border-zinc-800 transition-all">
+                  <div className="absolute top-4 right-4 p-2 bg-blue-500/10 rounded-lg text-blue-400">
+                    <Briefcase className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10px] text-zinc-500 block uppercase font-bold tracking-wider">Hours Reclaimed</span>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">1,280 hours</h3>
+                    <p className="text-[10px] text-blue-400 flex items-center gap-1 mt-1 font-semibold">
+                      85.4% support efficiency rate
+                    </p>
+                  </div>
+                </div>
+
+                {/* CSAT Rating */}
+                <div className="bg-[#09090b] border border-zinc-900 p-5 rounded-xl space-y-3 relative hover:border-zinc-850 transition-all">
+                  <div className="absolute top-4 right-4 p-2 bg-amber-500/10 rounded-lg text-amber-400">
+                    <CheckCircle className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10px] text-zinc-500 block uppercase font-bold tracking-wider">Customer CSAT</span>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">4.85 / 5.0</h3>
+                    <p className="text-[10px] text-amber-400 flex items-center gap-1 mt-1 font-semibold">
+                      Based on 1,420 post-chat ratings
+                    </p>
                   </div>
                 </div>
               </div>
+
+              {/* 2 custom responsive SVG charts */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                {/* SVG Revenue Growth Line Chart (8 columns on large screens) */}
+                <div className="lg:col-span-8 bg-[#09090b] border border-zinc-900 p-6 rounded-xl space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-semibold text-xs text-zinc-200">Pipeline Revenue Growth (Last 30 Days)</h4>
+                      <p className="text-[10px] text-zinc-500">Incremental revenue qualified and booked by Svachalit AI.</p>
+                    </div>
+                    <span className="text-[10px] text-indigo-400 font-mono font-semibold">+14.2% MoM</span>
+                  </div>
+                  
+                  {/* Inline Responsive SVG Line/Area Graph */}
+                  <div className="w-full h-56 bg-zinc-950/20 rounded-lg relative overflow-hidden flex flex-col justify-end">
+                    <svg className="w-full h-full" viewBox="0 0 600 180" preserveAspectRatio="none">
+                      {/* Grid Lines */}
+                      <line x1="0" y1="36" x2="600" y2="36" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                      <line x1="0" y1="72" x2="600" y2="72" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                      <line x1="0" y1="108" x2="600" y2="108" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                      <line x1="0" y1="144" x2="600" y2="144" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                      
+                      {/* Chart Glow Gradient */}
+                      <defs>
+                        <linearGradient id="revenueGlow" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="rgba(99, 102, 241, 0.25)" />
+                          <stop offset="100%" stopColor="rgba(99, 102, 241, 0.0)" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Area Fill path */}
+                      <path 
+                        d="M 0 160 L 0 140 Q 60 135 120 120 T 240 100 T 360 70 T 480 50 L 600 35 L 600 160 Z" 
+                        fill="url(#revenueGlow)"
+                      />
+
+                      {/* Line path */}
+                      <path 
+                        d="M 0 140 Q 60 135 120 120 T 240 100 T 360 70 T 480 50 L 600 35" 
+                        fill="none" 
+                        stroke="#818cf8" 
+                        strokeWidth="2" 
+                      />
+
+                      {/* Chart Dots for key checkpoints */}
+                      <circle cx="120" cy="120" r="3" fill="#818cf8" />
+                      <circle cx="240" cy="100" r="3" fill="#818cf8" />
+                      <circle cx="360" cy="70" r="3" fill="#818cf8" />
+                      <circle cx="480" cy="50" r="3" fill="#818cf8" />
+                      <circle cx="600" cy="35" r="3" fill="#818cf8" />
+                    </svg>
+
+                    {/* Y-Axis scale label markers */}
+                    <div className="absolute top-2 left-3 flex flex-col justify-between h-44 text-[9px] text-zinc-650 font-mono pointer-events-none">
+                      <span>$125k</span>
+                      <span>$100k</span>
+                      <span>$75k</span>
+                      <span>$50k</span>
+                      <span>$25k</span>
+                    </div>
+
+                    {/* X-Axis labels */}
+                    <div className="flex justify-between px-6 py-2 border-t border-zinc-900 bg-zinc-950/40 text-[9px] text-zinc-555 font-mono">
+                      <span>Day 1</span>
+                      <span>Day 5</span>
+                      <span>Day 10</span>
+                      <span>Day 15</span>
+                      <span>Day 20</span>
+                      <span>Day 25</span>
+                      <span>Day 30</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SVG Conversions by Channel Chart (4 columns on large screens) */}
+                <div className="lg:col-span-4 bg-[#09090b] border border-zinc-900 p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-semibold text-xs text-zinc-200">Channel Conversions</h4>
+                    <p className="text-[10px] text-zinc-500">Conversions qualified per communication stream.</p>
+                  </div>
+                  
+                  {/* Custom SVG Bar Chart */}
+                  <div className="space-y-4 my-2">
+                    
+                    {/* WhatsApp */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[10px]">
+                        <span className="flex items-center gap-1.5 font-semibold text-zinc-300">
+                          <Phone className="h-3 w-3 text-emerald-500" /> WhatsApp
+                        </span>
+                        <span className="font-mono text-zinc-400">45% (154 booking slots)</span>
+                      </div>
+                      <div className="w-full bg-zinc-950 h-2 rounded-full overflow-hidden border border-zinc-900">
+                        <div className="bg-emerald-500 h-full rounded-full" style={{ width: '45%' }} />
+                      </div>
+                    </div>
+
+                    {/* Instagram */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[10px]">
+                        <span className="flex items-center gap-1.5 font-semibold text-zinc-300">
+                          <Instagram className="h-3 w-3 text-pink-500" /> Instagram
+                        </span>
+                        <span className="font-mono text-zinc-400">30% (103 booking slots)</span>
+                      </div>
+                      <div className="w-full bg-zinc-950 h-2 rounded-full overflow-hidden border border-zinc-900">
+                        <div className="bg-pink-500 h-full rounded-full" style={{ width: '30%' }} />
+                      </div>
+                    </div>
+
+                    {/* Facebook */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[10px]">
+                        <span className="flex items-center gap-1.5 font-semibold text-zinc-300">
+                          <Facebook className="h-3 w-3 text-blue-500" /> Facebook
+                        </span>
+                        <span className="font-mono text-zinc-400">15% (51 booking slots)</span>
+                      </div>
+                      <div className="w-full bg-zinc-950 h-2 rounded-full overflow-hidden border border-zinc-900">
+                        <div className="bg-blue-500 h-full rounded-full" style={{ width: '15%' }} />
+                      </div>
+                    </div>
+
+                    {/* Inbound Voice */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[10px]">
+                        <span className="flex items-center gap-1.5 font-semibold text-zinc-300">
+                          <Phone className="h-3 w-3 text-orange-500" /> Inbound Voice
+                        </span>
+                        <span className="font-mono text-zinc-400">10% (34 booking slots)</span>
+                      </div>
+                      <div className="w-full bg-zinc-950 h-2 rounded-full overflow-hidden border border-zinc-900">
+                        <div className="bg-orange-500 h-full rounded-full" style={{ width: '10%' }} />
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div className="pt-3 border-t border-zinc-900 text-center">
+                    <p className="text-[10px] text-zinc-500">Svachalit automates booking events across all Meta channels.</p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Conversion Funnel & ROI Savings Section */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                {/* Funnel chart card */}
+                <div className="bg-[#09090b] border border-zinc-900 p-6 rounded-xl space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-xs text-zinc-200">Qualifying & Booking Sales Funnel</h4>
+                    <p className="text-[10px] text-zinc-500">How inbound customer messages flow into booked meetings.</p>
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    {/* Funnel Stage 1 */}
+                    <div className="flex items-center gap-4 bg-zinc-950/40 p-3 rounded-lg border border-zinc-900 hover:border-zinc-800 transition-all">
+                      <div className="w-14 text-center shrink-0 font-mono text-[10px] text-indigo-400 font-bold bg-indigo-950/40 border border-indigo-900/40 px-1.5 py-0.5 rounded">
+                        100%
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center text-xs font-semibold text-zinc-200">
+                          <span>Total Ingress Chats</span>
+                          <span>8,432 messages</span>
+                        </div>
+                        <p className="text-[10px] text-zinc-550">Inbound chats initiated on WhatsApp, DMs, or voice transcripts.</p>
+                      </div>
+                    </div>
+
+                    {/* Funnel Stage 2 */}
+                    <div className="flex items-center gap-4 bg-zinc-950/40 p-3 rounded-lg border border-zinc-900 hover:border-zinc-800 transition-all">
+                      <div className="w-14 text-center shrink-0 font-mono text-[10px] text-indigo-400 font-bold bg-indigo-950/40 border border-indigo-900/40 px-1.5 py-0.5 rounded">
+                        66.5%
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center text-xs font-semibold text-zinc-200">
+                          <span>AI Qualified Leads</span>
+                          <span>5,612 leads</span>
+                        </div>
+                        <p className="text-[10px] text-zinc-550">AI successfully parsed customer details, budgets, or interests.</p>
+                      </div>
+                    </div>
+
+                    {/* Funnel Stage 3 */}
+                    <div className="flex items-center gap-4 bg-zinc-950/40 p-3 rounded-lg border border-zinc-900 hover:border-zinc-800 transition-all">
+                      <div className="w-14 text-center shrink-0 font-mono text-[10px] text-indigo-400 font-bold bg-indigo-950/40 border border-indigo-900/40 px-1.5 py-0.5 rounded">
+                        38.4%
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center text-xs font-semibold text-zinc-200">
+                          <span>CRM Profiles Synced</span>
+                          <span>3,240 rows</span>
+                        </div>
+                        <p className="text-[10px] text-zinc-550">Lead records automatically pushed to Google Sheets or webhooks.</p>
+                      </div>
+                    </div>
+
+                    {/* Funnel Stage 4 */}
+                    <div className="flex items-center gap-4 bg-indigo-950/10 p-3 rounded-lg border border-indigo-900/20 hover:border-indigo-900/30 transition-all">
+                      <div className="w-14 text-center shrink-0 font-mono text-[10px] text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-900/30 px-1.5 py-0.5 rounded">
+                        4.1%
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center text-xs font-semibold text-zinc-200">
+                          <span>Successful Appt. Bookings</span>
+                          <span>342 slots secured</span>
+                        </div>
+                        <p className="text-[10px] text-indigo-300">High-value calendar slots reserved directly by AI agent logic.</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Cost Savings Analysis Card */}
+                <div className="bg-[#09090b] border border-zinc-900 p-6 rounded-xl space-y-5 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-semibold text-xs text-zinc-200">Automated Cost Savings & ROI</h4>
+                    <p className="text-[10px] text-zinc-500">Savings calculated based on reclaimed support workflows.</p>
+                  </div>
+
+                  <div className="space-y-4 my-2">
+                    {/* Manual agent cost */}
+                    <div className="flex items-center justify-between p-3.5 bg-zinc-950 rounded-lg border border-zinc-900">
+                      <div>
+                        <span className="text-[10px] text-zinc-500 block uppercase font-bold">Manual Agent Estimate</span>
+                        <span className="text-xs text-zinc-350 mt-1 block">1,280 hours × $10.00/hour</span>
+                      </div>
+                      <span className="text-sm font-semibold text-zinc-400 font-mono">$12,800.00 / mo</span>
+                    </div>
+
+                    {/* Svachalit cost */}
+                    <div className="flex items-center justify-between p-3.5 bg-zinc-950 rounded-lg border border-zinc-900">
+                      <div>
+                        <span className="text-[10px] text-indigo-400 block uppercase font-bold">Svachalit Managed cost</span>
+                        <span className="text-xs text-zinc-350 mt-1 block">Flat Subscription (Unlimited Messages)</span>
+                      </div>
+                      <span className="text-sm font-semibold text-indigo-300 font-mono">$49.00 / mo</span>
+                    </div>
+
+                    {/* Net Savings */}
+                    <div className="flex items-center justify-between p-4 bg-emerald-950/20 rounded-lg border border-emerald-900/30">
+                      <div>
+                        <span className="text-[10px] text-emerald-400 block uppercase font-extrabold tracking-wider">Net Monthly Reclaimed</span>
+                        <span className="text-xs text-emerald-300/80 mt-1 block font-medium">99.6% Reduction in Operating Cost</span>
+                      </div>
+                      <span className="text-lg font-bold text-emerald-400 font-mono">$12,751.00 / mo</span>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-zinc-950/50 rounded-lg text-[10px] text-zinc-500 text-center border border-zinc-900/50">
+                    💡 **ROI Multiplier**: Every $1 invested in Svachalit yields **$260.22** in operational savings.
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           )}
 
