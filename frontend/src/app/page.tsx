@@ -85,7 +85,9 @@ export default function Dashboard() {
   const sseRef = useRef<EventSource | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const BACKEND_URL = 'http://localhost:4000';
+  const BACKEND_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  'https://autobot-1-elsg.onrender.com';
 
   // 1. Fetch Conversations on Mount
   const fetchConversations = async () => {
